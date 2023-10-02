@@ -6,11 +6,11 @@ import org.energy.entity.Robot;
 import org.energy.repository.RobotRepository;
 import org.energy.service.RobotService;
 import org.energy.util.GeneralFunction;
+import org.energy.util.MathOperation;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -52,4 +52,11 @@ public class RobotServiceImpl implements RobotService {
 
         return true;
     }
+
+    @Override
+    public boolean utilFuctionOptimized(){
+        MathOperation.compareGeneratePassword();
+        return true;
+    }
+
 }

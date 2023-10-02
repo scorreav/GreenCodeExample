@@ -31,4 +31,9 @@ public class RobotController {
     public ResponseEntity<Boolean> updateRobotsOptimized(@RequestBody UpdateEnterpriseCostCenterRequest request) {
         return new ResponseEntity<>(robotService.updateEnterpriseCostCenterOptimized(request), HttpStatus.OK);
     }
+
+    @GetMapping("/compare-fuction")
+    public ResponseEntity<Boolean> utilOptimized(@RequestBody UpdateEnterpriseCostCenterRequest request) {
+        return new ResponseEntity<>(robotService.utilFuctionOptimized(), HttpStatus.OK);
+    }
 }
