@@ -13,5 +13,5 @@ public interface RobotService {
 
     boolean updateEnterpriseCostCenterOptimized(UpdateEnterpriseCostCenterRequest request);
 
-    boolean utilFuctionOptimized();
+    boolean utilOptimized();
 }

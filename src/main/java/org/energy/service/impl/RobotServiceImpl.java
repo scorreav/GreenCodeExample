@@ -9,6 +9,7 @@ import org.energy.util.GeneralFunction;
 import org.energy.util.MathOperation;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -54,8 +55,11 @@ public class RobotServiceImpl implements RobotService {
     }
 
     @Override
-    public boolean utilFuctionOptimized(){
-        MathOperation.compareGeneratePassword();
+    public boolean utilOptimized(){
+        //MathOperation.compareGeneratePassword();
+        MathOperation.compareSum();
+        //MathOperation.sum(BigDecimal.valueOf(1000000000));
+        //MathOperation.sumNew(BigDecimal.valueOf(1000000000));
         return true;
     }
 
