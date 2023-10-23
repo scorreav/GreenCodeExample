@@ -77,6 +77,7 @@ public class MathOperation {
         var rand = new Random();
         var asciiValues = rand.ints(lengthPassword, 65, 122).toArray();
         return Arrays.stream(asciiValues)
+                .filter(Character::isLetter)
                 .mapToObj(Character::toString)
                 .collect(Collectors.joining());
     }
