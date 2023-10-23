@@ -16,6 +16,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     annotationProcessor 'org.projectlombok:lombok'
 
+    implementation 'org.springframework.boot:spring-boot-actuator:2.7.15'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator:2.7.15'
+    implementation 'io.micrometer:micrometer-registry-prometheus:1.11.4'
+
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
 
