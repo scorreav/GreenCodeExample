@@ -66,12 +66,33 @@ public class MathOperation {
         return Character.toString((char) (rand.nextInt(120 - 97)) + 97);
     }
 
-
     public static String generatePasswordNew(int lengthPassword) {
         var rand = new Random();
         return IntStream.range(0, lengthPassword)
                 .mapToObj(i -> rand.nextInt(2) == 0 ? capitalLetter() : minimumLetter())
                 .collect(Collectors.joining());
+    }
+
+    public static String generatePasswordnew1(int lengthPassword) {
+        var rand = new Random();
+        var asciiValues = rand.ints(lengthPassword, 65, 122).toArray();
+        return Arrays.stream(asciiValues)
+                .mapToObj(Character::toString)
+                .collect(Collectors.joining());
+    }
+
+    public static String generatePasswordNew2(int lengthPassword) {
+        var rand = new Random();
+        var rta = new StringBuilder();
+        while (rta.length() < lengthPassword) {
+            var result = rand.nextDouble();
+            if (result <= 0.5) {
+                rta.append(capitalLetter());
+            } else {
+                rta.append(minimumLetter());
+            }
+        }
+        return rta.toString();
     }
 
     private static final String[] UPPER_CASE_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
