@@ -144,9 +144,6 @@ public class MathOperation {
     }
     /*
 
-
-
-
     Elimina el else: Se utiliza la función filter() para eliminar los valores null del Stream.
     Elimina el ciclo for: Se utiliza la función reduce() para sumar los valores del Stream.
 
