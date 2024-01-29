@@ -22,7 +22,7 @@ public class MathOperationController {
 
     @GetMapping("/generate-password-optimized")
     public ResponseEntity<String> generatePasswordNew(@RequestParam int length) {
-        return ResponseEntity.ok(MathOperation.generatePasswordNew(length));
+        return ResponseEntity.ok(MathOperation.generatePasswordNew1(length));
     }
 
     @GetMapping("/sum")

@@ -9,9 +9,10 @@ import org.energy.util.GeneralFunction;
 import org.energy.util.MathOperation;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -28,7 +29,7 @@ public class RobotServiceImpl implements RobotService {
     public boolean updateEnterpriseCostCenter(UpdateEnterpriseCostCenterRequest request) {
         robotRepository.findByEnterpriseCostCenterId(request.getEnterpriseCostCenterId())
                 .forEach(robot -> {
-                    if(!request.getRobots().contains(robot.getId())) {
+                    if (!request.getRobots().contains(robot.getId())) {
                         request.getRobots().remove(robot.getId());
                         robotRepository.updateEnterpriseCostCenterId(null, robot.getId());
                     }
@@ -55,7 +56,60 @@ public class RobotServiceImpl implements RobotService {
     }
 
     @Override
-    public boolean utilOptimized(){
+    public List<Robot> findRobot(String nameToFind) {
+        List<Robot> robotList = robotRepository.findAll();
+
+        List<Robot> rta = new ArrayList<>();
+        for (Robot robot : robotList) {
+            if (robot.getName().contains(nameToFind)) {
+                rta.add(robot);
+            }
+        }
+
+        return rta;
+    }
+
+    @Override
+    public List<Robot> findRobotStream(String nameToFind) {
+        return robotRepository.findAll()
+                .stream()
+                .filter(robot -> robot.getName().contains(nameToFind))
+                .toList();
+    }
+
+    @Override
+    public String findNumbers(int number) {
+        List<Integer> numbers = robotRepository.findAll().stream().flatMap(robot -> Stream.of(robot.getId().intValue())).toList();
+
+        for(int a : numbers) {
+            int diff = number - a;
+            for(int b : numbers) {
+                if(b != a && b == diff) {
+                    return Arrays.toString(new int[]{a, b});
+                }
+            }
+        }
+        return Arrays.toString(new int[]{0, 0});
+    }
+
+    @Override
+    public String findNumbersDownComplexity(int number) {
+        List<Integer> numbers = robotRepository.findAll().stream().flatMap(robot -> Stream.of(robot.getId().intValue())).toList();
+        Set<Integer> set = new HashSet<>();
+
+        for(int a : numbers) {
+            int diff = number - a;
+
+            if(set.contains(diff))
+                return Arrays.toString(new int[]{a, diff});
+            else
+                set.add(a);
+        }
+        return Arrays.toString(new int[]{0, 0});
+    }
+
+    @Override
+    public boolean utilOptimized() {
         //MathOperation.compareGeneratePassword();
         MathOperation.compareSum();
         //MathOperation.sum(BigDecimal.valueOf(1000000000));

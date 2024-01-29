@@ -32,6 +32,26 @@ public class RobotController {
         return new ResponseEntity<>(robotService.updateEnterpriseCostCenterOptimized(request), HttpStatus.OK);
     }
 
+    @GetMapping("/find-robot")
+    public ResponseEntity<List<Robot>> findRobot(@RequestParam("robot-name") String robotName) {
+        return new ResponseEntity<>(robotService.findRobot(robotName), HttpStatus.OK);
+    }
+
+    @GetMapping("/find-robot-stream")
+    public ResponseEntity<List<Robot>> findRobotStream(@RequestParam("robot-name") String robotName) {
+        return new ResponseEntity<>(robotService.findRobotStream(robotName), HttpStatus.OK);
+    }
+
+    @GetMapping("/find-number")
+    public ResponseEntity<String> findNumber(@RequestParam int number) {
+        return new ResponseEntity<>(robotService.findNumbers(number), HttpStatus.OK);
+    }
+
+    @GetMapping("/find-number-complexity")
+    public ResponseEntity<String> findNumberDownComplexity(@RequestParam int number) {
+        return new ResponseEntity<>(robotService.findNumbersDownComplexity(number), HttpStatus.OK);
+    }
+
     @PostMapping("/compare")
     public ResponseEntity<Boolean> utilOptimized(@RequestBody UpdateEnterpriseCostCenterRequest request) {
         return new ResponseEntity<>(robotService.utilOptimized(), HttpStatus.OK);

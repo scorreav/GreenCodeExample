@@ -73,7 +73,7 @@ public class MathOperation {
                 .collect(Collectors.joining());
     }
 
-    public static String generatePasswordnew1(int lengthPassword) {
+    public static String generatePasswordNew1(int lengthPassword) {
         var rand = new Random();
         var asciiValues = rand.ints(lengthPassword, 65, 122).toArray();
         return Arrays.stream(asciiValues)
