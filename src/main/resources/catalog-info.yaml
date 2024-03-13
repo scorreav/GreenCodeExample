@@ -5,6 +5,6 @@ metadata:
   annotations:
     github.com/project-slug: scorreav/GreenCodeExample
 spec:
-  type: other
-  owner: guest
   lifecycle: production
+  owner: guest
+  type: other
