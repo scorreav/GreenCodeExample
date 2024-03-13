@@ -1,4 +1,4 @@
-apiVersion: greenCode/v1
+apiVersion: backstage.io/v1
 kind: Component
 metadata:
   name: GreenCoding
