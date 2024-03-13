@@ -1,18 +1,10 @@
-apiVersion: personalsoft/greencodev1
+apiVersion: greenCode/v1
 kind: Component
 metadata:
-  name: energy-hardware-efficiency
-  description: API para prueba de rendimiento de algoritmos
-  labels:
-    example.com/custom: green_coding
-  annotations:
-    example.com/service-discovery: green_code
-    circleci.com/project-slug: github.com/scorreav/GreenCodeExample
-  tags:
-    - java
-    - green-coding
+  name: GreenCoding
+  description: |
+    Proyecto para probar la eficiencia de diversas funciones
 spec:
-  type: API
-  lifecycle: testing
-  owner: innovation-team
-  system: personal-cto
+  type: service
+  owner: personalsoft
+  lifecycle: experimental
