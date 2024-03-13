@@ -8,7 +8,7 @@ metadata:
     github.com/project-slug: scorreav/GreenCodeExample
   tags:
     - java
-    - greenCoding
+    - green-coding
 spec:
   type: service
   lifecycle: production
