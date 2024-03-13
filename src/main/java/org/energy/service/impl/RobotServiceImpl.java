@@ -11,14 +11,17 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
-@RequiredArgsConstructor
 public class RobotServiceImpl implements RobotService {
 
     private final RobotRepository robotRepository;
+    private List<Robot> robotList;
+
+    public RobotServiceImpl (RobotRepository robotRepository) {
+        this.robotRepository = robotRepository;
+    }
 
     @Override
     public List<Robot> getRobots() {
@@ -56,9 +59,15 @@ public class RobotServiceImpl implements RobotService {
     }
 
     @Override
-    public List<Robot> findRobot(String nameToFind) {
-        List<Robot> robotList = robotRepository.findAll();
+    public boolean fillRobots() {
+        if(robotList == null) {
+            robotList = robotRepository.findAll();
+        }
+        return true;
+    }
 
+    @Override
+    public List<Robot> findRobot(String nameToFind) {
         List<Robot> rta = new ArrayList<>();
         for (Robot robot : robotList) {
             if (robot.getName().contains(nameToFind)) {
@@ -71,20 +80,40 @@ public class RobotServiceImpl implements RobotService {
 
     @Override
     public List<Robot> findRobotStream(String nameToFind) {
-        return robotRepository.findAll()
+        return robotList
                 .stream()
+                .parallel()
                 .filter(robot -> robot.getName().contains(nameToFind))
                 .toList();
     }
 
     @Override
-    public String findNumbers(int number) {
-        List<Integer> numbers = robotRepository.findAll().stream().flatMap(robot -> Stream.of(robot.getId().intValue())).toList();
+    public long reduceRobots() {
+        long rta = 0L;
 
-        for(int a : numbers) {
+        for (Robot robot: robotList) {
+            rta += robot.getId().longValue();
+        }
+
+        return rta;
+    }
+
+    @Override
+    public long reduceRobotsStream() {
+        return robotList
+                .stream()
+                .parallel()
+                .reduce(0L, (accumulator, robot) -> accumulator + robot.getId().longValue(), Long::sum);
+    }
+
+    @Override
+    public String findNumbers(int number) {
+        List<Integer> numbers = robotList.stream().flatMap(robot -> Stream.of(robot.getId().intValue())).toList();
+
+        for (int a : numbers) {
             int diff = number - a;
-            for(int b : numbers) {
-                if(b != a && b == diff) {
+            for (int b : numbers) {
+                if (b != a && b == diff) {
                     return Arrays.toString(new int[]{a, b});
                 }
             }
@@ -94,18 +123,57 @@ public class RobotServiceImpl implements RobotService {
 
     @Override
     public String findNumbersDownComplexity(int number) {
-        List<Integer> numbers = robotRepository.findAll().stream().flatMap(robot -> Stream.of(robot.getId().intValue())).toList();
+        List<Integer> numbers = robotList.stream().flatMap(robot -> Stream.of(robot.getId().intValue())).toList();
         Set<Integer> set = new HashSet<>();
 
-        for(int a : numbers) {
+        for (int a : numbers) {
             int diff = number - a;
 
-            if(set.contains(diff))
+            if (set.contains(diff))
                 return Arrays.toString(new int[]{a, diff});
             else
                 set.add(a);
         }
         return Arrays.toString(new int[]{0, 0});
+    }
+
+    @Override
+    public Robot findRobotById(BigInteger id) {
+        Robot rta = null;
+        boolean found = false;
+
+        for(int i = 0; i < robotList.size() && !found; i++) {
+            var robot = robotList.get(i);
+            if(robot.getId().compareTo(id) == 0) {
+                rta = robot;
+                found = true;
+            }
+        }
+        return rta;
+    }
+
+    @Override
+    public Robot findRobotByIdBinarySearch(BigInteger id) {
+        int min = 0;
+        int max = robotList.size();
+        Robot rta = null;
+
+        while (min <= max && rta == null) {
+            var prom = (min + max) / 2;
+            var robot = robotList.get(prom);
+            if (id.compareTo(robot.getId()) == 0)
+                rta = robot;
+            else if (id.compareTo(robot.getId()) < 0)
+                max = prom - 1;
+            else
+                min = prom + 1;
+        }
+        return rta;
+    }
+
+    @Override
+    public Robot findRobotByIdRecursive(BigInteger id) {
+        return GeneralFunction.binarySearchRecursive(robotList, 0, robotList.size(), id);
     }
 
     @Override
@@ -116,5 +184,4 @@ public class RobotServiceImpl implements RobotService {
         //MathOperation.sumNew(BigDecimal.valueOf(1000000000));
         return true;
     }
-
 }

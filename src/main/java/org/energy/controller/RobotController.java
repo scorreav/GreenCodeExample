@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigInteger;
 import java.util.List;
 
 @RestController
@@ -50,6 +51,36 @@ public class RobotController {
     @GetMapping("/find-number-complexity")
     public ResponseEntity<String> findNumberDownComplexity(@RequestParam int number) {
         return new ResponseEntity<>(robotService.findNumbersDownComplexity(number), HttpStatus.OK);
+    }
+
+    @GetMapping("/search-robot")
+    public ResponseEntity<Robot> findRobotSearch(@RequestParam BigInteger robotId) {
+        return new ResponseEntity<>(robotService.findRobotById(robotId), HttpStatus.OK);
+    }
+
+    @GetMapping("/search-robot-binary")
+    public ResponseEntity<Robot> findRobotBinarySearch(@RequestParam BigInteger robotId) {
+        return new ResponseEntity<>(robotService.findRobotByIdBinarySearch(robotId), HttpStatus.OK);
+    }
+
+    @GetMapping("/search-robot-binary-recursive")
+    public ResponseEntity<Robot> findRobotBinaryRecursive(@RequestParam BigInteger robotId) {
+        return new ResponseEntity<>(robotService.findRobotByIdRecursive(robotId), HttpStatus.OK);
+    }
+
+    @GetMapping("/fill-robots")
+    public ResponseEntity<Boolean> fillRobots() {
+        return new ResponseEntity<>(robotService.fillRobots(), HttpStatus.OK);
+    }
+
+    @GetMapping("/reduce-robots")
+    public ResponseEntity<Long> reduceRobots() {
+        return new ResponseEntity<>(robotService.reduceRobots(), HttpStatus.OK);
+    }
+
+    @GetMapping("/reduce-robots-stream")
+    public ResponseEntity<Long> reduceRobotsStream() {
+        return new ResponseEntity<>(robotService.reduceRobotsStream(), HttpStatus.OK);
     }
 
     @PostMapping("/compare")

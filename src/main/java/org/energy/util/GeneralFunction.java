@@ -1,5 +1,7 @@
 package org.energy.util;
 
+import org.energy.entity.Robot;
+
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,5 +46,19 @@ public class GeneralFunction {
             query = query.replace("%query%", filter);
         }
         return query;
+    }
+
+    public static Robot binarySearchRecursive(List<Robot> robotList, int min, int max, BigInteger id){
+        if (max < min)
+            return null;
+        int prom = (min + max) / 2;
+
+        var robot = robotList.get(prom);
+        if (id.compareTo(robot.getId()) == 0)
+            return robot;
+        else if (id.compareTo(robot.getId()) < 0)
+            return binarySearchRecursive(robotList, min, prom - 1, id);
+        else
+            return binarySearchRecursive(robotList, prom + 1, max, id);
     }
 }
