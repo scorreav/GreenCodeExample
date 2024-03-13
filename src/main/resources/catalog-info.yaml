@@ -7,4 +7,4 @@ metadata:
 spec:
   lifecycle: production
   owner: guest
-  type: other
+  type: service
