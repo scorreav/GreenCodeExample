@@ -6,5 +6,5 @@ metadata:
     github.com/project-slug: scorreav/GreenCodeExample
 spec:
   type: other
-  lifecycle: production
   owner: guest
+  lifecycle: production
