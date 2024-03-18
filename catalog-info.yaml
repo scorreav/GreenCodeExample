@@ -6,6 +6,7 @@ metadata:
     Aplicación para medición de métodos
   annotations:
     github.com/project-slug: scorreav/GreenCodeExample
+    backstage.io/techdocs-ref: dir:.
   tags:
     - java
     - green-coding
